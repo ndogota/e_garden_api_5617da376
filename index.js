@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send("Hello World!");
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({key:"From API E-Garden"}));
 });
 
 const PORT = process.env.PORT || 3001;
