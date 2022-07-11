@@ -18,7 +18,7 @@ recordRoutes.route('/listings').get(async function (_req, res) {
         .limit(50)
         .toArray(function (err, result) {
             if (err) {
-                res.status(400).send('Error fetching listings!');
+                //res.status(400).send('Error fetching listings!');
             } else {
                 res.json(result);
             }
