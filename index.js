@@ -34,7 +34,7 @@ require("./app/routes/user.routes")(app);
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to E-Garden API. db.getUser() : "});
+    res.json({ message: "Welcome to E-Garden API."});
 });
 
 // fetching plants
@@ -43,7 +43,7 @@ app.get("/plants", (req, res) => {
         if(err) {
             console.log(err);
         } else {
-            res.json(plants);
+            res.status(200).send(plants);
         }
     })
 });
