@@ -1,40 +1,28 @@
-# node-js-getting-started
+api app using NodeJS trough the Express Framework
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+### requirements
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+*   Node.js LTS release
+*   Express
 
-## Running Locally
+### installation
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+simple to use, clone the repository and checkout to the “main-api” branch :
 
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+    git checkout main-api
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+go to the **e\_garden\_api** folder using **cd** :
 
-## Deploying to Heroku
+    cd e_garden_api
 
-```
-$ heroku create
-$ git push heroku main
-$ heroku open
-```
+install **Express** if you doesnt have it :
 
-or
+    npm install express
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+now you can install packages using **npm** for the node\_modules folder :
 
-## Documentation
+    npm install
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+you are ready to launch the server using :
 
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+    node index.js

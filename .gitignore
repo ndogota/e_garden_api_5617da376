@@ -11,3 +11,9 @@ config.env
 # Docker
 Dockerfile
 docker-compose.yml
+
+# Intellij
+.idea
+
+# Config
+config.env

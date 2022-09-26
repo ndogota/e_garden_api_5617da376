@@ -3,35 +3,98 @@ require('dotenv').config({ path: './config.env' });
 
 const express = require('express');
 const cors = require('cors');
-// get MongoDB driver connection
-const dbo = require('./db/conn');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(require('./routes/record'));
 
-/*
+// get MongoDB driver connection
+const db = require("./app/models");
+const Role = db.role;
 
-// Global error handling
-app.use(function (err, _req, res) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
- */
-
-// perform a database connection when the server starts
-dbo.connectToServer(function (err) {
-    if (err) {
-        console.error(err);
+db.mongoose
+    .connect(process.env.ATLAS_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log("Successfully connect to MongoDB.");
+        initial();
+    })
+    .catch(err => {
+        console.error("Connection error", err);
         process.exit();
-    }
-
-    // start the Express server
-    app.listen(PORT, () => {
-        console.log(`Server is running on port: ${PORT}`);
     });
+
+// routes
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
+
+// simple route
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to E-Garden API. db.getUser() : "});
 });
+
+// fetching plants
+app.get("/plants", (req, res) => {
+    db.plants.find({}, function(err, plants) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.json(plants);
+        }
+    })
+});
+
+// fetching topics
+app.get("/topics", (req, res) => {
+    db.topics.find({}, function(err, topics) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.json(topics);
+        }
+    })
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+});
+
+function initial() {
+    Role.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+            new Role({
+                name: "user"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("role 'user' added to roles collection");
+            });
+
+            new Role({
+                name: "moderator"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("role 'moderator' added to roles collection");
+            });
+
+            new Role({
+                name: "admin"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("role 'admin' added to roles collection");
+            });
+        }
+    });
+}
