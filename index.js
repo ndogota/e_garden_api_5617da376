@@ -31,21 +31,11 @@ db.mongoose
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/plants.routes")(app);
 
 // simple route
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to E-Garden API."});
-});
-
-// fetching plants
-app.get("/plants", (req, res) => {
-    db.plants.find({}, function(err, plants) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.status(200).send(plants);
-        }
-    })
 });
 
 // fetching topics

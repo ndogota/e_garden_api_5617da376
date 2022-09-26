@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const Plants = mongoose.model(
     "Plants",
     new mongoose.Schema({
-        name: String
+        name: String,
+        type: String,
+        duration: String
     })
 );
 
